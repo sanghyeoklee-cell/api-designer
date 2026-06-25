@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+# Virtualenvs (cover both .venv and venv, anywhere)
+.venv/
+venv/
+**/.venv/
+**/venv/
+
+# Backend storage (contains API keys and captured session data) — never commit
+backend/storage/
+**/storage/
+**/settings.json
+**/sessions/
+
+# Flutter
+flutter_app/.dart_tool/
+flutter_app/.flutter-plugins*
+flutter_app/.flutter-plugins-dependencies*
+flutter_app/build/
+flutter_app/.pub-cache/
+flutter_app/pubspec.lock
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Generated output
+output/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Claude Code
+.claude/
