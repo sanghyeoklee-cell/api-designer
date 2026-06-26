@@ -2,7 +2,7 @@
 
 **English** · [한국어](./README.ko.md) · [中文](./README.zh.md)
 
-A local desktop tool to **manually record a website's HTTP API traffic**, then use Claude to **analyze the captured endpoints** and **generate a ready-to-run FastAPI client**. You drive the browser yourself — there is no autonomous agent.
+A local desktop tool to **manually record a website's HTTP API traffic**, then use Claude to **analyze the captured endpoints** and **generate a ready-to-run client — either a FastAPI client or a Claude Agent SDK agent**. You drive the browser yourself — there is no autonomous agent.
 
 It is a FastAPI backend plus a Flutter desktop shell (macOS).
 
@@ -22,7 +22,11 @@ This tool captures live HTTP traffic — including authentication headers, cooki
 
 1. **Record (manual).** Launch a Chromium browser, navigate and interact with the target site yourself. API requests/responses and DOM snapshots are captured as you browse.
 2. **Analyze.** Send the captured traffic to the Claude API to identify endpoints, the authentication scheme, data patterns, and the inputs a user would need to supply.
-3. **Generate.** Produce a complete FastAPI client project that mirrors the discovered API. Secrets are read from environment variables — never hardcoded.
+3. **Generate.** Choose an output target and produce a ready-to-run project that mirrors the discovered API:
+   - **FastAPI client** — a FastAPI server/client that proxies the original API.
+   - **Claude Agent SDK agent** — a Python agent that wraps each discovered endpoint as a custom tool, so you can drive the API through Claude in natural language.
+
+   Secrets are read from environment variables — never hardcoded.
 
 ## Requirements
 
@@ -65,7 +69,7 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 
 1. Open the **Record** tab, enter a target URL, and start recording.
 2. Browse and interact with the site — log in, navigate, trigger the API calls you care about.
-3. Stop recording, then **Analyze** the session, then **Generate** the client code.
+3. Stop recording, then **Analyze** the session, pick an output target (**FastAPI client** or **Claude Agent SDK agent**), and **Generate** the code.
 4. Generated projects are written under `backend/output/` (gitignored).
 
 ## Security notes

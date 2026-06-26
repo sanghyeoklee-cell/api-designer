@@ -2,7 +2,7 @@
 
 [English](./README.md) · [한국어](./README.ko.md) · **中文**
 
-一款本地桌面工具，用于**手动录制网站的 HTTP API 流量**，然后借助 Claude **分析捕获到的接口**并**生成可直接运行的 FastAPI 客户端**。浏览器由你自己操作，没有自主智能体（agent）。
+一款本地桌面工具，用于**手动录制网站的 HTTP API 流量**，然后借助 Claude **分析捕获到的接口**并**生成可直接运行的代码 —— FastAPI 客户端或 Claude Agent SDK 智能体**。浏览器由你自己操作，没有自主智能体（agent）。
 
 由 FastAPI 后端和 Flutter 桌面外壳（macOS）组成。
 
@@ -22,7 +22,11 @@
 
 1. **录制（手动）。** 启动 Chromium 浏览器，由你自己浏览并操作目标站点。浏览过程中会捕获 API 请求/响应和 DOM 快照。
 2. **分析。** 将捕获的流量发送到 Claude API，识别接口、认证方式、数据模式，以及用户需要提供的输入项。
-3. **生成。** 生成一个完整的 FastAPI 客户端项目，复现所发现的 API。密钥从环境变量读取，绝不硬编码。
+3. **生成。** 选择输出目标，生成复现所发现 API 的可运行项目：
+   - **FastAPI 客户端** —— 代理原始 API 的 FastAPI 服务端/客户端。
+   - **Claude Agent SDK 智能体** —— 将发现的每个接口包装为自定义工具的 Python 智能体，可用自然语言通过 Claude 操作该 API。
+
+   密钥从环境变量读取，绝不硬编码。
 
 ## 环境要求
 
@@ -65,7 +69,7 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 
 1. 打开 **Record** 标签页，输入目标 URL 并开始录制。
 2. 自行浏览并操作站点 —— 登录、导航、触发你关心的 API 调用。
-3. 停止录制，先 **Analyze**（分析）会话，再 **Generate**（生成）客户端代码。
+3. 停止录制，先 **Analyze**（分析）会话，选择输出目标（**FastAPI 客户端**或 **Claude Agent SDK 智能体**），再 **Generate**（生成）代码。
 4. 生成的项目写入 `backend/output/` 目录（已在 gitignore 中）。
 
 ## 安全说明
