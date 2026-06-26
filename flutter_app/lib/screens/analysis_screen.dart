@@ -14,6 +14,7 @@ class AnalysisScreen extends StatefulWidget {
 
 class _AnalysisScreenState extends State<AnalysisScreen> {
   final _projectNameController = TextEditingController(text: 'generated_api');
+  String _target = 'fastapi'; // 'fastapi' | 'agent_sdk'
 
   @override
   void dispose() {
@@ -138,7 +139,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _Card(
-                          title: 'Generate API Server',
+                          title: 'Generate Code',
                           icon: Icons.code,
                           iconColor: const Color(0xFF7C3AED),
                           child: Column(
@@ -149,6 +150,37 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                 decoration: const InputDecoration(
                                   labelText: 'Project name',
                                   hintText: 'generated_api',
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              const Text('Output target',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFF6B7280))),
+                              const SizedBox(height: 6),
+                              SizedBox(
+                                width: double.infinity,
+                                child: SegmentedButton<String>(
+                                  segments: const [
+                                    ButtonSegment(
+                                      value: 'fastapi',
+                                      label: Text('FastAPI client'),
+                                      icon: Icon(Icons.api, size: 15),
+                                    ),
+                                    ButtonSegment(
+                                      value: 'agent_sdk',
+                                      label: Text('Agent SDK'),
+                                      icon:
+                                          Icon(Icons.smart_toy_outlined, size: 15),
+                                    ),
+                                  ],
+                                  selected: {_target},
+                                  showSelectedIcon: false,
+                                  onSelectionChanged: state.loading
+                                      ? null
+                                      : (sel) =>
+                                          setState(() => _target = sel.first),
                                 ),
                               ),
                               if (analysis
@@ -230,7 +262,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     }
 
     // Start generation (runs in background, streams via WebSocket)
-    await state.generateCode(widget.sessionId, values, projectName);
+    await state.generateCode(widget.sessionId, values, projectName, _target);
   }
 }
 

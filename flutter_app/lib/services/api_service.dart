@@ -205,6 +205,7 @@ class ApiService {
     required String sessionId,
     required Map<String, String> userInputs,
     String projectName = 'generated_api',
+    String target = 'fastapi',
   }) async {
     final response = await http.post(
       Uri.parse('$_baseUrl/api/codegen/generate'),
@@ -213,6 +214,7 @@ class ApiService {
         'session_id': sessionId,
         'user_inputs': userInputs,
         'project_name': projectName,
+        'target': target,
       }),
     );
     if (response.statusCode != 200) {

@@ -261,7 +261,8 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> generateCode(
-      String sessionId, Map<String, String> userInputs, String projectName) async {
+      String sessionId, Map<String, String> userInputs, String projectName,
+      [String target = 'fastapi']) async {
     // Setup streaming state
     codegenStreaming = true;
     streamingFiles = {};
@@ -280,6 +281,7 @@ class AppState extends ChangeNotifier {
         sessionId: sessionId,
         userInputs: userInputs,
         projectName: projectName,
+        target: target,
       );
       generatedFiles = Map<String, String>.from(streamingFiles);
       error = null;

@@ -31,6 +31,7 @@ class GenerateRequest(BaseModel):
     session_id: str
     user_inputs: dict[str, str]
     project_name: str = "generated_api"
+    target: str = "fastapi"  # "fastapi" | "agent_sdk"
 
 
 @router.post("/generate")
@@ -66,6 +67,7 @@ async def generate_code(req: GenerateRequest) -> dict:
             entries=session.api_entries,
             project_name=req.project_name,
             output_dir=output_dir,
+            target=req.target,
         )
         _generated[req.session_id] = files
         _session_mgr.update_status(req.session_id, SessionStatus.COMPLETED)
